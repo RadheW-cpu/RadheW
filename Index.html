@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Radhe W. — Curated Shorts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #ffffff;
+      --muted: #6b7280;
+      --accent: #111827;
+      --card: #fbfbfb;
+      --glass: rgba(17,24,39,0.03);
+      --radius: 12px;
+      --max-width: 980px;
+      --price: #0f766e;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;color:var(--accent);-webkit-font-smoothing:antialiased}
+    .wrap{max-width:var(--max-width);margin:48px auto;padding:28px}
+
+    header{display:flex;gap:20px;align-items:center}
+    .avatar{width:88px;height:88px;border-radius:14px;background:linear-gradient(180deg,#eef2ff,#fff);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);box-shadow:0 6px 18px var(--glass)}
+    h1{font-size:20px;margin:0}
+    p.lead{margin:6px 0 0;color:var(--muted);font-size:14px}
+
+    .hero{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding:18px;border-radius:14px;background:var(--card);box-shadow:0 8px 30px rgba(9,10,11,0.04)}
+    .hero .bio{max-width:66%}
+    .hero .actions{display:flex;gap:10px;align-items:center}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:600;border:1px solid transparent}
+    .btn-primary{background:#111827;color:#fff}
+
+    .books{margin-top:26px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+    .card{background:transparent;padding:14px;border-radius:12px;border:1px solid #f0f0f0}
+    .card-inner{display:flex;flex-direction:column;height:100%}
+    .thumbnail{height:140px;border-radius:8px;background:linear-gradient(180deg,#fff,#f7f8fb);display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:600;margin-bottom:12px}
+    .title{font-weight:700;margin:0 0 6px;font-size:15px}
+    .meta{font-size:13px;color:var(--muted);margin-bottom:8px}
+    .price{font-weight:700;color:var(--price);font-size:14px;margin-bottom:10px}
+    .card .read{margin-top:auto}
+    a.read{display:inline-block;padding:8px 10px;border-radius:8px;text-decoration:none;border:1px solid #eaeaea}
+
+    footer{margin-top:36px;padding-top:18px;border-top:1px solid #f2f2f2;color:var(--muted);font-size:13px}
+
+    @media (max-width:720px){.hero{flex-direction:column;align-items:flex-start}.hero .bio{max-width:100%}}
+
+    .pill{display:inline-block;padding:6px 8px;border-radius:999px;border:1px solid #efefef;font-size:12px;background:#fff}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="avatar">RW</div>
+      <div>
+        <h1>Radhe W.</h1>
+        <p class="lead">Strange, strange stories — short, weird, and quietly profound. Each tale is a single, self-contained journey priced at $0.99.</p>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="bio">
+        <p style="margin:0 0 8px">These are standalone short books — odd little experiments in story and idea. Perfect for one-night readings or to carry in your pocket between trains. Click a title to open its Amazon page (links are blank placeholders; set them in the script).</p>
+        <p style="margin:0;color:var(--muted);font-size:13px">Note: These are not a series — each book is its own universe. Price: <strong>$0.99</strong> per title.</p>
+        <div style="margin-top:12px">
+          <a class="btn btn-primary" href="#" id="authorPageLink">Visit Author Page</a>
+        </div>
+      </div>
+
+      <div class="actions">
+        <div style="text-align:right">
+          <div class="pill">Curated Shorts</div>
+          <div style="margin-top:14px;font-size:12px;color:var(--muted)">Launched • 2025</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="books" id="books">
+      <article class="card">
+        <div class="card-inner">
+          <div class="thumbnail">Cover</div>
+          <h3 class="title">The Man Who Sold Shadows</h3>
+          <div class="meta">Weird fiction • 9,800 words</div>
+          <div class="price">$0.99</div>
+          <div class="read"><a class="read" href="#" data-book-id="book1">View on Amazon</a></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-inner">
+          <div class="thumbnail">Cover</div>
+          <h3 class="title">Midnight Cartographer</h3>
+          <div class="meta">Mini‑novel • Maps of memory</div>
+          <div class="price">$0.99</div>
+          <div class="read"><a class="read" href="#" data-book-id="book2">View on Amazon</a></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-inner">
+          <div class="thumbnail">Cover</div>
+          <h3 class="title">Wormhole Vortex Tales</h3>
+          <div class="meta">Speculative • Short stories</div>
+          <div class="price">$0.99</div>
+          <div class="read"><a class="read" href="#" data-book-id="book3">View on Amazon</a></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-inner">
+          <div class="thumbnail">Cover</div>
+          <h3 class="title">The Hungry Cobbler</h3>
+          <div class="meta">Fable • Moral oddities</div>
+          <div class="price">$0.99</div>
+          <div class="read"><a class="read" href="#" data-book-id="book4">View on Amazon</a></div>
+        </div>
+      </article>
+
+    </section>
+
+    <footer>
+      <div>Tip: To make readers explore more, keep each book page linking to a single "Explore more by this author" link — that points to your Amazon Author Page. Update the links in the script below.</div>
+    </footer>
+  </div>
+
+  <script>
+    const bookLinks = {
+      book1: '',
+      book2: '',
+      book3: '',
+      book4: '',
+      authorPage: ''
+    };
+
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelectorAll('[data-book-id]').forEach(a => {
+        const id = a.getAttribute('data-book-id');
+        if(bookLinks[id] && bookLinks[id].trim().length>0){
+          a.setAttribute('href', bookLinks[id]);
+          a.setAttribute('target','_blank');
+          a.setAttribute('rel','noopener noreferrer');
+        } else {
+          a.setAttribute('href','#');
+          a.setAttribute('title','Link placeholder — set bookLinks["'+id+'"] in the script');
+        }
+      });
+
+      const ap = document.getElementById('authorPageLink');
+      if(bookLinks.authorPage && bookLinks.authorPage.trim().length>0){ 
+        ap.href = bookLinks.authorPage; 
+        ap.target = '_blank'; 
+        ap.setAttribute('rel','noopener noreferrer'); 
+      }
+    });
+  </script>
+</body>
+</html>
