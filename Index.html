@@ -2,158 +2,510 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Radhe W. — Curated Shorts</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Radhe W. — Code & Prose</title>
+  <!-- Fonts: modern sans + code font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    /* ---------------------------------------------------------
+       Theme variables (custom properties) - supports light/dark
+       --------------------------------------------------------- */
     :root{
       --bg: #ffffff;
-      --muted: #6b7280;
-      --accent: #111827;
-      --card: #fbfbfb;
-      --glass: rgba(17,24,39,0.03);
+      --surface: #f6f6f6;
+      --text: #1e1e1e; /* dark gray specified by user */
+      --muted: #6b6b6b;
+      --accent: #0a84ff; /* small accent for CTAs */
+      --code-bg: #f3f3f3;
+      --glass: rgba(30,30,30,0.04);
       --radius: 12px;
-      --max-width: 980px;
-      --price: #0f766e;
+      --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+      --ui: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      --transition: 220ms cubic-bezier(.2,.9,.3,1);
     }
+
+    /* Dark theme */
+    .dark{
+      --bg: #1E1E1E; /* user's dark gray */
+      --surface: #2A2A2A;
+      --text: #D4D4D4; /* off-white */
+      --muted: #9b9b9b;
+      --accent: #66b0ff;
+      --code-bg: #121212;
+      --glass: rgba(255,255,255,0.03);
+    }
+
+    /* Basic reset + base styles */
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:var(--bg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;color:var(--accent);-webkit-font-smoothing:antialiased}
-    .wrap{max-width:var(--max-width);margin:48px auto;padding:28px}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: var(--ui);
+      background: linear-gradient(180deg, var(--bg), var(--surface));
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:32px;
+      transition: background var(--transition), color var(--transition);
+    }
 
-    header{display:flex;gap:20px;align-items:center}
-    .avatar{width:88px;height:88px;border-radius:14px;background:linear-gradient(180deg,#eef2ff,#fff);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);box-shadow:0 6px 18px var(--glass)}
-    h1{font-size:20px;margin:0}
-    p.lead{margin:6px 0 0;color:var(--muted);font-size:14px}
+    /* Layout container */
+    .container{max-width:1100px;margin:0 auto}
 
-    .hero{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding:18px;border-radius:14px;background:var(--card);box-shadow:0 8px 30px rgba(9,10,11,0.04)}
-    .hero .bio{max-width:66%}
-    .hero .actions{display:flex;gap:10px;align-items:center}
-    .btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:600;border:1px solid transparent}
-    .btn-primary{background:#111827;color:#fff}
+    header{
+      display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;
+    }
 
-    .books{margin-top:26px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
-    .card{background:transparent;padding:14px;border-radius:12px;border:1px solid #f0f0f0}
-    .card-inner{display:flex;flex-direction:column;height:100%}
-    .thumbnail{height:140px;border-radius:8px;background:linear-gradient(180deg,#fff,#f7f8fb);display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:600;margin-bottom:12px}
-    .title{font-weight:700;margin:0 0 6px;font-size:15px}
-    .meta{font-size:13px;color:var(--muted);margin-bottom:8px}
-    .price{font-weight:700;color:var(--price);font-size:14px;margin-bottom:10px}
-    .card .read{margin-top:auto}
-    a.read{display:inline-block;padding:8px 10px;border-radius:8px;text-decoration:none;border:1px solid #eaeaea}
+    /* Logo / name */
+    .brand{
+      display:flex;align-items:center;gap:14px;
+    }
+    .logo{
+      width:46px;height:46px;border-radius:10px;background:var(--glass);display:grid;place-items:center;font-weight:700;color:var(--text);
+      box-shadow:0 6px 18px rgba(0,0,0,0.06);
+      font-family:var(--mono);
+    }
 
-    footer{margin-top:36px;padding-top:18px;border-top:1px solid #f2f2f2;color:var(--muted);font-size:13px}
+    nav{display:flex;gap:12px;align-items:center}
+    a.navlink{
+      text-decoration:none;color:var(--muted);font-weight:600;padding:8px 12px;border-radius:8px;transition:all var(--transition);
+    }
+    a.navlink:hover{color:var(--text);background:var(--glass);transform:translateY(-2px)}
 
-    @media (max-width:720px){.hero{flex-direction:column;align-items:flex-start}.hero .bio{max-width:100%}}
+    /* Theme toggle */
+    .theme-toggle{background:transparent;border:1px solid var(--glass);padding:8px;border-radius:8px;cursor:pointer}
 
-    .pill{display:inline-block;padding:6px 8px;border-radius:999px;border:1px solid #efefef;font-size:12px;background:#fff}
+    /* ------------------
+       HERO
+       ------------------ */
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;padding:28px;background:var(--surface);border-radius:var(--radius);}
+    .hero-left h1{font-size:38px;margin:0 0 8px 0;font-weight:800;letter-spacing:-0.02em;display:flex;align-items:center;gap:12px}
+    .cursor{width:10px;height:24px;background:var(--text);border-radius:2px;margin-left:6px;opacity:1;}
+    /* blinking cursor animation */
+    @keyframes blink {0%,49%{opacity:1}50%,100%{opacity:0}}
+    .blink{animation:blink 1s steps(2,end) infinite}
+
+    .hero p{margin:0 0 18px 0;color:var(--muted);font-size:16px}
+    .cta{display:flex;gap:12px}
+    .btn{padding:10px 14px;border-radius:10px;border:0;background:var(--text);color:var(--bg);font-weight:600;cursor:pointer;transition:transform var(--transition), box-shadow var(--transition)}
+    .btn.secondary{background:transparent;color:var(--text);border:1px solid var(--glass)}
+    .btn:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.08)}
+
+    /* HERO right: latest book cover */
+    .hero-right{display:flex;flex-direction:column;gap:12px;align-items:center}
+    .book-card{width:210px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(0,0,0,0.03),transparent);box-shadow:0 10px 28px rgba(0,0,0,0.06);}
+    .book-cover{height:300px;background:linear-gradient(135deg,var(--accent),transparent);display:grid;place-items:center;color:var(--bg);font-weight:800;font-size:20px;font-family:var(--mono)}
+    .book-meta{padding:12px;text-align:center}
+
+    /* Recent posts scroller */
+    .recent{
+      margin-top:14px;display:flex;gap:8px;overflow:auto;padding-bottom:4px
+    }
+    .post{min-width:220px;padding:12px;border-radius:10px;background:var(--bg);box-shadow:0 6px 18px rgba(0,0,0,0.04);border:1px solid var(--glass);}
+    .post h4{margin:0 0 6px 0;font-size:15px}
+    .post p{margin:0;color:var(--muted);font-size:13px}
+
+    /* ------------------
+       SECTIONS: Books, Bundles, Long-form
+       ------------------ */
+    section{margin-top:28px}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:12px}
+    .section-head h2{margin:0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;margin-top:14px}
+
+    .card{background:var(--surface);padding:12px;border-radius:12px;border:1px solid var(--glass);}
+    .cover{height:240px;border-radius:8px;background:linear-gradient(135deg,var(--accent),transparent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700}
+    .card h3{margin:12px 0 6px 0;font-size:16px}
+    .card p{margin:0;color:var(--muted);font-size:14px}
+
+    /* Modal styles */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:none;place-items:center;padding:20px;z-index:60}
+    .modal{width:100%;max-width:880px;background:var(--bg);border-radius:12px;padding:20px;border:1px solid var(--glass);box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+    .modal .meta{display:flex;gap:18px}
+    .modal .meta .left{flex:0 0 220px}
+    .modal .meta .right{flex:1}
+    .close{background:transparent;border:0;color:var(--muted);font-weight:700;cursor:pointer}
+
+    /* Bundles & long form styles */
+    .bundle-pill{padding:10px;border-radius:10px;border:1px dashed var(--glass);display:flex;align-items:center;justify-content:space-between;gap:12px}
+
+    /* Footer */
+    footer{margin-top:48px;padding:18px 6px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* Responsive */
+    @media (max-width:920px){
+      .hero{grid-template-columns:1fr}
+      .hero-right{order:2}
+    }
+    @media (max-width:520px){
+      body{padding:18px}
+      .hero-left h1{font-size:28px}
+      .book-cover{height:220px}
+    }
+
+    /* Utility: hidden when JS not loaded */
+    .hidden-js{display:none}
   </style>
 </head>
-<body>
-  <div class="wrap">
+<body class="">
+  <div class="container">
     <header>
-      <div class="avatar">RW</div>
-      <div>
-        <h1>Radhe W.</h1>
-        <p class="lead">Strange, strange stories — short, weird, and quietly profound. Each tale is a single, self-contained journey priced at $0.99.</p>
+      <div class="brand">
+        <div class="logo">RW</div>
+        <div>
+          <div style="font-weight:700">Radhe W.</div>
+          <div style="font-size:13px;color:var(--muted)">Author • Developer</div>
+        </div>
       </div>
+
+      <nav>
+        <a class="navlink" href="#home">Home</a>
+        <a class="navlink" href="#books">Books</a>
+        <a class="navlink" href="#bundles">Bundles</a>
+        <a class="navlink" href="#longform">Long Form</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">Toggle</button>
+      </nav>
     </header>
 
-    <section class="hero">
-      <div class="bio">
-        <p style="margin:0 0 8px">These are standalone short books — odd little experiments in story and idea. Perfect for one-night readings or to carry in your pocket between trains. Click a title to open its Amazon page (links are blank placeholders; set them in the script).</p>
-        <p style="margin:0;color:var(--muted);font-size:13px">Note: These are not a series — each book is its own universe. Price: <strong>$0.99</strong> per title.</p>
-        <div style="margin-top:12px">
-          <a class="btn btn-primary" href="#" id="authorPageLink">Visit Author Page</a>
-        </div>
-      </div>
+    <!-- HERO -->
+    <main id="home">
+      <section class="hero" aria-label="Hero">
+        <div class="hero-left">
+          <h1>
+            Radhe W.
+            <!-- blinking cursor next to name -->
+            <span class="cursor blink" id="nameCursor" aria-hidden="true"></span>
+          </h1>
+          <p style="font-size:16px">Code &amp; Prose — essays, dev notes, and narrative non-fiction where technology meets storytelling.</p>
 
-      <div class="actions">
-        <div style="text-align:right">
-          <div class="pill">Curated Shorts</div>
-          <div style="margin-top:14px;font-size:12px;color:var(--muted)">Launched • 2025</div>
-        </div>
-      </div>
-    </section>
+          <div class="cta">
+            <!-- latest book CTA links to Books section with anchor to a book id -->
+            <a href="#books" class="btn">Latest Book</a>
+            <button class="btn secondary" onclick="document.getElementById('books').scrollIntoView({behavior:'smooth'})">Browse Books</button>
+          </div>
 
-    <section class="books" id="books">
-      <article class="card">
-        <div class="card-inner">
-          <div class="thumbnail">Cover</div>
-          <h3 class="title">The Man Who Sold Shadows</h3>
-          <div class="meta">Weird fiction • 9,800 words</div>
-          <div class="price">$0.99</div>
-          <div class="read"><a class="read" href="#" data-book-id="book1">View on Amazon</a></div>
-        </div>
-      </article>
+          <!-- recent posts scroller -->
+          <div style="margin-top:16px">
+            <div style="font-weight:700;margin-bottom:8px">Recent posts</div>
+            <div class="recent" id="recentPosts" aria-label="Recent posts">
+              <!-- Example recent posts (replace with actual content or dynamic rendering) -->
+              <article class="post" tabindex="0">
+                <h4>On Readability in Code</h4>
+                <p>Short thoughts on naming, spacing, and micro-comments that matter.</p>
+              </article>
+              <article class="post" tabindex="0">
+                <h4>Rewriting a Chapter with Tests</h4>
+                <p>How TDD helped structure a narrative arc in my latest draft.</p>
+              </article>
+              <article class="post" tabindex="0">
+                <h4>Minimal UI, Maximum Clarity</h4>
+                <p>Design choices I use to keep interfaces calm and useful.</p>
+              </article>
+            </div>
+          </div>
 
-      <article class="card">
-        <div class="card-inner">
-          <div class="thumbnail">Cover</div>
-          <h3 class="title">Midnight Cartographer</h3>
-          <div class="meta">Mini‑novel • Maps of memory</div>
-          <div class="price">$0.99</div>
-          <div class="read"><a class="read" href="#" data-book-id="book2">View on Amazon</a></div>
         </div>
-      </article>
 
-      <article class="card">
-        <div class="card-inner">
-          <div class="thumbnail">Cover</div>
-          <h3 class="title">Wormhole Vortex Tales</h3>
-          <div class="meta">Speculative • Short stories</div>
-          <div class="price">$0.99</div>
-          <div class="read"><a class="read" href="#" data-book-id="book3">View on Amazon</a></div>
+        <aside class="hero-right" aria-label="Latest book">
+          <div class="book-card">
+            <div class="book-cover">LATEST
+            </div>
+            <div class="book-meta">
+              <div style="font-weight:700">Title of Latest Book</div>
+              <div style="font-size:13px;color:var(--muted)">A short one-line subtitle that hooks readers.</div>
+              <div style="margin-top:10px;display:flex;gap:10px;justify-content:center">
+                <a class="btn" href="#" onclick="openBookModal('book-1')">Details</a>
+                <a class="btn secondary" href="#" aria-disabled="true">Buy — <!-- leave link blank for user to fill --> </a>
+              </div>
+            </div>
+          </div>
+
+          <div style="font-size:13px;color:var(--muted);margin-top:8px;text-align:center">Available in print, ebook, and audio.</div>
+        </aside>
+      </section>
+
+      <!-- BOOKS SECTION -->
+      <section id="books" aria-label="Books">
+        <div class="section-head">
+          <h2>Books</h2>
+          <div style="color:var(--muted);font-size:14px">A curated gallery of published works</div>
         </div>
-      </article>
 
-      <article class="card">
-        <div class="card-inner">
-          <div class="thumbnail">Cover</div>
-          <h3 class="title">The Hungry Cobbler</h3>
-          <div class="meta">Fable • Moral oddities</div>
-          <div class="price">$0.99</div>
-          <div class="read"><a class="read" href="#" data-book-id="book4">View on Amazon</a></div>
+        <div class="grid" id="booksGrid">
+          <!-- Book card example - duplicate for new books. The button opens a modal. -->
+          <article class="card" role="article">
+            <div class="cover">BOOK 1</div>
+            <h3>Title One</h3>
+            <p>Short tagline for the book.</p>
+            <div style="margin-top:10px;display:flex;gap:8px">
+              <button class="btn" onclick="openBookModal('book-1')">Details</button>
+              <a class="btn secondary" href="#" aria-disabled="true">Buy</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="cover">BOOK 2</div>
+            <h3>Title Two</h3>
+            <p>A short summary line.</p>
+            <div style="margin-top:10px;display:flex;gap:8px">
+              <button class="btn" onclick="openBookModal('book-2')">Details</button>
+              <a class="btn secondary" href="#" aria-disabled="true">Buy</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="cover">BOOK 3</div>
+            <h3>Title Three</h3>
+            <p>Another short summary line.</p>
+            <div style="margin-top:10px;display:flex;gap:8px">
+              <button class="btn" onclick="openBookModal('book-3')">Details</button>
+              <a class="btn secondary" href="#" aria-disabled="true">Buy</a>
+            </div>
+          </article>
+
+          <!-- more book cards... -->
         </div>
-      </article>
+      </section>
 
-    </section>
+      <!-- BUNDLES SECTION -->
+      <section id="bundles" aria-label="Bundles">
+        <div class="section-head">
+          <h2>Bundles</h2>
+          <div style="color:var(--muted);font-size:14px">Hand-picked collections & discounts</div>
+        </div>
+
+        <div class="grid">
+          <div class="card bundle-pill">
+            <div>
+              <div style="font-weight:700">Starter Bundle</div>
+              <div style="font-size:13px;color:var(--muted)">Includes Title One + Title Two.</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <button class="btn" onclick="alert('Fill bundle action or link')">View</button>
+              <a class="btn secondary" href="#" aria-disabled="true">Buy Bundle</a>
+            </div>
+          </div>
+
+          <div class="card bundle-pill">
+            <div>
+              <div style="font-weight:700">Complete Works</div>
+              <div style="font-size:13px;color:var(--muted)">All long-form books in one package.</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <button class="btn" onclick="alert('Fill bundle action or link')">View</button>
+              <a class="btn secondary" href="#" aria-disabled="true">Buy Bundle</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LONG FORM BOOKS SECTION -->
+      <section id="longform" aria-label="Long form books">
+        <div class="section-head">
+          <h2>Long Form Books</h2>
+          <div style="color:var(--muted);font-size:14px">In-depth, narrative-driven works</div>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="cover">LF</div>
+            <h3>Long Form Title A</h3>
+            <p>200+ pages, a deep exploration of theme and craft.</p>
+            <div style="margin-top:10px;display:flex;gap:8px">
+              <button class="btn" onclick="openBookModal('book-lf-1')">Details</button>
+              <a class="btn secondary" href="#" aria-disabled="true">Buy</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="cover">LF</div>
+            <h3>Long Form Title B</h3>
+            <p>A sweeping narrative that spans technology and memory.</p>
+            <div style="margin-top:10px;display:flex;gap:8px">
+              <button class="btn" onclick="openBookModal('book-lf-2')">Details</button>
+              <a class="btn secondary" href="#" aria-disabled="true">Buy</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+    </main>
 
     <footer>
-      <div>Tip: To make readers explore more, keep each book page linking to a single "Explore more by this author" link — that points to your Amazon Author Page. Update the links in the script below.</div>
+      © <span id="year"></span> Radhe W. — Crafted with minimalism, code, and coffee.
     </footer>
   </div>
 
+  <!-- Modal backdrop (single modal element reused for books) -->
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-hidden="true">
+    <div class="modal" role="document">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div style="font-weight:800">Book Details</div>
+        <button class="close" aria-label="Close modal" id="closeModal">✕</button>
+      </div>
+
+      <div class="meta">
+        <div class="left">
+          <div class="cover" id="modalCover">COVER</div>
+        </div>
+        <div class="right">
+          <h3 id="modalTitle">Title</h3>
+          <p id="modalSubtitle" style="color:var(--muted);margin:6px 0">Subtitle or short hook</p>
+          <p id="modalDescription">Full description of the book goes here. Replace with the book's blurb. Keep it concise and enticing — 2-4 paragraphs max recommended.</p>
+
+          <div style="display:flex;gap:10px;margin-top:12px">
+            <!-- Leave purchase links blank for user to fill manually -->
+            <a class="btn" id="modalBuy1" href="#">Buy (Retail)</a>
+            <a class="btn secondary" id="modalBuy2" href="#">Buy (Amazon)</a>
+            <button class="btn secondary" id="modalClose2">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
-    const bookLinks = {
-      book1: '',
-      book2: '',
-      book3: '',
-      book4: '',
-      authorPage: ''
+    // ------------------
+    // Basic JS: theme toggle, modal handling, dynamic year
+    // ------------------
+
+    const body = document.body;
+    const themeToggle = document.getElementById('themeToggle');
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const closeModalBtn = document.getElementById('closeModal');
+    const modalClose2 = document.getElementById('modalClose2');
+    const yearEl = document.getElementById('year');
+
+    // Set the current year in footer
+    yearEl.textContent = new Date().getFullYear();
+
+    // Preserve theme in localStorage (light by default)
+    function setTheme(dark){
+      if(dark){
+        body.classList.add('dark');
+        themeToggle.textContent = 'Light';
+        localStorage.setItem('theme','dark');
+      } else {
+        body.classList.remove('dark');
+        themeToggle.textContent = 'Dark';
+        localStorage.setItem('theme','light');
+      }
+    }
+
+    // Initialize
+    setTheme(localStorage.getItem('theme') === 'dark');
+
+    themeToggle.addEventListener('click', ()=>{
+      setTheme(!body.classList.contains('dark'));
+    });
+
+    // Simple modal data store - replace descriptions with real content
+    const BOOKS = {
+      'book-1':{
+        title:'Title One',
+        subtitle:'A short subtitle',
+        coverText:'BOOK 1',
+        description:`An evocative description for Title One. Describe the main theme and why readers will care.\n\n- 250 pages\n- Available in paperback & ebook` ,
+        buy1:'', // leave blank for user
+        buy2:''
+      },
+      'book-2':{
+        title:'Title Two',
+        subtitle:'Another short hook',
+        coverText:'BOOK 2',
+        description:`Description for Title Two. \n\nPraise, short excerpt, or notable awards.`,
+        buy1:'',
+        buy2:''
+      },
+      'book-3':{
+        title:'Title Three',
+        subtitle:'Tagline here',
+        coverText:'BOOK 3',
+        description:`Description for Title Three.`,
+        buy1:'',
+        buy2:''
+      },
+      'book-lf-1':{
+        title:'Long Form Title A',
+        subtitle:'Epic, deep, and careful',
+        coverText:'LF A',
+        description:'Long-form description for book A. Use this area for a longer blurb (2-3 paragraphs).',
+        buy1:'',buy2:''
+      },
+      'book-lf-2':{
+        title:'Long Form Title B',
+        subtitle:'Sweeping narrative',
+        coverText:'LF B',
+        description:'Long-form description for book B.',
+        buy1:'',buy2:''
+      }
     };
 
-    document.addEventListener('DOMContentLoaded', function(){
-      document.querySelectorAll('[data-book-id]').forEach(a => {
-        const id = a.getAttribute('data-book-id');
-        if(bookLinks[id] && bookLinks[id].trim().length>0){
-          a.setAttribute('href', bookLinks[id]);
-          a.setAttribute('target','_blank');
-          a.setAttribute('rel','noopener noreferrer');
-        } else {
-          a.setAttribute('href','#');
-          a.setAttribute('title','Link placeholder — set bookLinks["'+id+'"] in the script');
-        }
-      });
+    // Opens the modal and populates content
+    function openBookModal(id){
+      const data = BOOKS[id];
+      if(!data) return;
+      document.getElementById('modalTitle').textContent = data.title;
+      document.getElementById('modalSubtitle').textContent = data.subtitle;
+      document.getElementById('modalDescription').textContent = data.description;
+      document.getElementById('modalCover').textContent = data.coverText;
 
-      const ap = document.getElementById('authorPageLink');
-      if(bookLinks.authorPage && bookLinks.authorPage.trim().length>0){ 
-        ap.href = bookLinks.authorPage; 
-        ap.target = '_blank'; 
-        ap.setAttribute('rel','noopener noreferrer'); 
-      }
+      // Leave links blank (user will fill them manually). We still attach href values if provided.
+      const mBuy1 = document.getElementById('modalBuy1');
+      const mBuy2 = document.getElementById('modalBuy2');
+      mBuy1.href = data.buy1 || '#';
+      mBuy2.href = data.buy2 || '#';
+
+      modalBackdrop.style.display = 'grid';
+      modalBackdrop.setAttribute('aria-hidden','false');
+
+      // focus for accessibility
+      closeModalBtn.focus();
+    }
+
+    function closeBookModal(){
+      modalBackdrop.style.display = 'none';
+      modalBackdrop.setAttribute('aria-hidden','true');
+    }
+
+    closeModalBtn.addEventListener('click', closeBookModal);
+    modalClose2.addEventListener('click', closeBookModal);
+
+    // close on backdrop click
+    modalBackdrop.addEventListener('click', (e)=>{
+      if(e.target === modalBackdrop) closeBookModal();
     });
+
+    // escape key to close
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape') closeBookModal();
+    });
+
+    // Accessibility: ensure recent posts scroller shows keyboard outline
+    const recent = document.getElementById('recentPosts');
+    recent.addEventListener('wheel', (e)=>{
+      // enable horizontal scroll when using mousewheel + shift or on trackpad
+      if(!e.shiftKey && Math.abs(e.deltaY) > Math.abs(e.deltaX)){
+        recent.scrollLeft += e.deltaY;
+        e.preventDefault();
+      }
+    }, {passive:false});
+
+    // Small enhancement: auto-detect prefers-color-scheme if no saved preference
+    if(!localStorage.getItem('theme')){
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(prefersDark);
+    }
+
+    // Remove cursor after 8 seconds for subtlety (keeps scanning effect but not distracting)
+    setTimeout(()=>{
+      const c = document.getElementById('nameCursor');
+      if(c) c.classList.remove('blink');
+    },8000);
+
+    // Expose openBookModal to global scope so inline handlers can call it
+    window.openBookModal = openBookModal;
   </script>
 </body>
 </html>
